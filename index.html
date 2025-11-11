@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Login/Register Screen -->
+        <div class="screen active" id="auth-screen">
+            <div class="auth-container">
+                <div class="logo-section">
+                    <!-- Usando el logo correcto de Coffee Shop circular -->
+                    <div class="logo">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-3o4SFNMd8VmR2N1So2zeCCB4tCVaZ6.png" alt="Coffee Shop Logo" class="logo-img">
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('login')">LOGEARSE</button>
+                    <button class="tab" onclick="switchTab('register')">REGISTRARSE</button>
+                </div>
+
+                <div class="auth-content">
+                    <!-- Login Form -->
+                    <div class="form-container" id="login-form">
+                        <h2>Bienvenido a Coffe Shop</h2>
+                        <form>
+                            <input type="email" placeholder="Correo" required>
+                            <input type="password" placeholder="Contraseña" required>
+                            <button type="button" class="btn-primary" onclick="navigateTo('menu-screen')">LOGEARSE</button>
+                            <a href="#" class="forgot-password">OLVIDE LA CONTRASEÑA</a>
+                        </form>
+                    </div>
+
+                    <!-- Register Form -->
+                    <div class="form-container hidden" id="register-form">
+                        <h2>Bienvenido a Coffe Shop</h2>
+                        <form>
+                            <input type="email" placeholder="Correo" required>
+                            <input type="password" placeholder="Contraseña" required>
+                            <input type="tel" placeholder="Telefono" required>
+                            <input type="text" placeholder="Nombre" required>
+                            <button type="button" class="btn-primary" onclick="navigateTo('menu-screen')">REGISTRARSE</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Screen -->
+        <div class="screen" id="menu-screen">
+            <nav class="top-nav">
+                <button class="nav-icon" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
+                <h1>Menú</h1>
+                <!-- Agregando ícono de notificaciones junto con usuario y logout -->
+                <div class="top-nav-icons">
+                    <button class="nav-icon" onclick="navigateTo('notifications-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="navigateTo('profile-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="logout()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Agregando sidebar desplegable con categorías -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h2>Categorías</h2>
+                    <button class="close-sidebar" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                            <path d="M18 6L6 18M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="sidebar-menu">
+                    <button class="sidebar-item" onclick="filterByCategory('todo')">Todo</button>
+                    <button class="sidebar-item" onclick="filterByCategory('bebidas')">Bebidas</button>
+                    <button class="sidebar-item" onclick="filterByCategory('snacks')">Snacks</button>
+                    <button class="sidebar-item" onclick="filterByCategory('combos')">Combos</button>
+                    <button class="sidebar-item" onclick="filterByCategory('postres')">Postres</button>
+                    <button class="sidebar-item" onclick="filterByCategory('cafes')">Cafés</button>
+                </div>
+            </div>
+
+            <div class="menu-content">
+                <div class="search-bar">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#666" stroke-width="2">
+                        <circle cx="8" cy="8" r="6"/>
+                        <path d="M13 13l5 5"/>
+                    </svg>
+                    <input type="text" placeholder="Buscar" id="search-input" onkeyup="searchProducts()">
+                </div>
+
+                <!-- Agregando más productos con temática de cafetería -->
+                <div class="products-grid" id="products-grid">
+                    <!-- Combos -->
+                    <div class="product-card" data-category="combos" onclick="viewProductDetails('Combo de Hamburguesa', '/placeholder.svg?height=120&width=120', 'Deliciosa hamburguesa con papas y bebida.', 12500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Combo">
+                        </div>
+                        <h3>Combo de Hamburguesa</h3>
+                        <p class="price">12.500$</p>
+                    </div>
+
+                    <div class="product-card" data-category="combos" onclick="viewProductDetails('Combo Desayuno', '/placeholder.svg?height=120&width=120', 'Desayuno completo con café, jugo y pastelería.', 15000)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Combo Desayuno">
+                        </div>
+                        <h3>Combo Desayuno</h3>
+                        <p class="price">15.000$</p>
+                    </div>
+
+                    <!-- Snacks -->
+                    <div class="product-card" data-category="snacks" onclick="viewProductDetails('Empanadas', '/placeholder.svg?height=120&width=120', 'Empanadas crujientes rellenas de carne.', 3500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Empanadas">
+                        </div>
+                        <h3>Empanadas</h3>
+                        <p class="price">3.500$</p>
+                    </div>
+
+                    <div class="product-card" data-category="snacks" onclick="viewProductDetails('Croissant', '/placeholder.svg?height=120&width=120', 'Croissant tierno y hojaldrado.', 4500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Croissant">
+                        </div>
+                        <h3>Croissant</h3>
+                        <p class="price">4.500$</p>
+                    </div>
+
+                    <div class="product-card" data-category="snacks" onclick="viewProductDetails('Sandwich Club', '/placeholder.svg?height=120&width=120', 'Sandwich clásico con pollo, tocino y vegetales.', 8500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Sandwich">
+                        </div>
+                        <h3>Sandwich Club</h3>
+                        <p class="price">8.500$</p>
+                    </div>
+
+                    <div class="product-card" data-category="snacks" onclick="viewProductDetails('Tostadas Francesas', '/placeholder.svg?height=120&width=120', 'Tostadas francesas esponjosas con sirope.', 7000)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Tostadas">
+                        </div>
+                        <h3>Tostadas Francesas</h3>
+                        <p class="price">7.000$</p>
+                    </div>
+
+                    <!-- Bebidas -->
+                    <div class="product-card" data-category="bebidas" onclick="viewProductDetails('Gaseosa', '/placeholder.svg?height=120&width=120', 'Refrescante bebida gaseosa.', 2500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Gaseosa">
+                        </div>
+                        <h3>Gaseosa</h3>
+                        <p class="price">2.500$</p>
+                    </div>
+
+                    <div class="product-card" data-category="bebidas" onclick="viewProductDetails('Jugo Natural', '/placeholder.svg?height=120&width=120', 'Jugo fresco de frutas naturales.', 5000)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Jugo">
+                        </div>
+                        <h3>Jugo Natural</h3>
+                        <p class="price">5.000$</p>
+                    </div>
+
+                    <div class="product-card" data-category="bebidas" onclick="viewProductDetails('Limonada', '/placeholder.svg?height=120&width=120', 'Limonada refrescante y casera.', 4000)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Limonada">
+                        </div>
+                        <h3>Limonada</h3>
+                        <p class="price">4.000$</p>
+                    </div>
+
+                    <div class="product-card" data-category="bebidas" onclick="viewProductDetails('Smoothie de Frutas', '/placeholder.svg?height=120&width=120', 'Batido cremoso de frutas frescas.', 6500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Smoothie">
+                        </div>
+                        <h3>Smoothie de Frutas</h3>
+                        <p class="price">6.500$</p>
+                    </div>
+
+                    <!-- Postres -->
+                    <div class="product-card" data-category="postres" onclick="viewProductDetails('Helados', '/placeholder.svg?height=120&width=120', 'Deliciosos helados de varios sabores.', 3500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Helados">
+                        </div>
+                        <h3>Helados</h3>
+                        <p class="price">3.500$</p>
+                    </div>
+
+                    <div class="product-card" data-category="postres" onclick="viewProductDetails('Torta de Chocolate', '/placeholder.svg?height=120&width=120', 'Torta húmeda de chocolate.', 5500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Torta">
+                        </div>
+                        <h3>Torta de Chocolate</h3>
+                        <p class="price">5.500$</p>
+                    </div>
+
+                    <div class="product-card" data-category="postres" onclick="viewProductDetails('Cheesecake', '/placeholder.svg?height=120&width=120', 'Suave cheesecake con base de galleta.', 6000)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Cheesecake">
+                        </div>
+                        <h3>Cheesecake</h3>
+                        <p class="price">6.000$</p>
+                    </div>
+
+                    <div class="product-card" data-category="postres" onclick="viewProductDetails('Brownie', '/placeholder.svg?height=120&width=120', 'Brownie denso y chocolatoso.', 4500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Brownie">
+                        </div>
+                        <h3>Brownie</h3>
+                        <p class="price">4.500$</p>
+                    </div>
+
+                    <!-- Cafés -->
+                    <div class="product-card" data-category="cafes" onclick="viewProductDetails('Café Americano', '/placeholder.svg?height=120&width=120', 'Café negro intenso.', 3000)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Americano">
+                        </div>
+                        <h3>Café Americano</h3>
+                        <p class="price">3.000$</p>
+                    </div>
+
+                    <div class="product-card" data-category="cafes" onclick="viewProductDetails('Cappuccino', '/placeholder.svg?height=120&width=120', 'Espresso con leche vaporizada y espuma.', 4000)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Cappuccino">
+                        </div>
+                        <h3>Cappuccino</h3>
+                        <p class="price">4.000$</p>
+                    </div>
+
+                    <div class="product-card" data-category="cafes" onclick="viewProductDetails('Latte', '/placeholder.svg?height=120&width=120', 'Espresso con leche vaporizada y una fina capa de espuma.', 4500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Latte">
+                        </div>
+                        <h3>Latte</h3>
+                        <p class="price">4.500$</p>
+                    </div>
+
+                    <div class="product-card" data-category="cafes" onclick="viewProductDetails('Espresso', '/placeholder.svg?height=120&width=120', 'Café concentrado y aromático.', 2500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Espresso">
+                        </div>
+                        <h3>Espresso</h3>
+                        <p class="price">2.500$</p>
+                    </div>
+
+                    <div class="product-card" data-category="cafes" onclick="viewProductDetails('Mocha', '/placeholder.svg?height=120&width=120', 'Café con chocolate y crema.', 5000)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Mocha">
+                        </div>
+                        <h3>Mocha</h3>
+                        <p class="price">5.000$</p>
+                    </div>
+
+                    <div class="product-card" data-category="cafes" onclick="viewProductDetails('Café Frío', '/placeholder.svg?height=120&width=120', 'Café helado con leche y endulzante.', 5500)">
+                        <div class="product-image">
+                            <img src="/placeholder.svg?height=120&width=120" alt="Café Frío">
+                        </div>
+                        <h3>Café Frío</h3>
+                        <p class="price">5.500$</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <button class="bottom-nav-btn active">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#8B6F47">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2z"/>
+                    </svg>
+                </button>
+                <!-- Cambiando el color del stroke del menú de #8B6F47 a #d4a574 para que coincida con los íconos superiores -->
+                <button class="bottom-nav-btn" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4a574" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
+                <button class="bottom-nav-btn" onclick="navigateTo('cart-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                </button>
+                <!-- Eliminando botón de usuario de la barra inferior -->
+            </div>
+        </div>
+
+        <!-- Product Detail Screen -->
+        <div class="screen" id="product-detail-screen">
+            <nav class="top-nav">
+                <button class="nav-icon" onclick="navigateTo('menu-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1 id="product-detail-title">Detalles</h1>
+                <!-- Agregando ícono de notificaciones junto con usuario y logout -->
+                <div class="top-nav-icons">
+                    <button class="nav-icon" onclick="navigateTo('notifications-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="navigateTo('profile-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="logout()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+
+            <div class="product-detail-content">
+                <div class="product-detail-card">
+                    <div class="product-detail-image" id="product-detail-image">
+                        <img src="/placeholder.svg?height=200&width=200" alt="Producto">
+                    </div>
+                    
+                    <h2 id="product-detail-name">Nombre del Producto</h2>
+                    
+                    <div class="product-description">
+                        <h3>Descripción</h3>
+                        <p id="product-detail-description">Delicioso producto preparado con ingredientes frescos y de la más alta calidad.</p>
+                    </div>
+
+                    <div class="product-price-section">
+                        <h3>Precio</h3>
+                        <p class="product-detail-price" id="product-detail-price">0$</p>
+                    </div>
+
+                    <!-- Agregando selector de cantidad en detalles del producto -->
+                    <div class="product-quantity-section">
+                        <h3>Cantidad</h3>
+                        <div class="quantity-controls-large">
+                            <button onclick="updateProductQuantity(-1)">-</button>
+                            <span id="product-quantity">1</span>
+                            <button onclick="updateProductQuantity(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn-primary" onclick="addToCartFromDetail()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="21" r="1"/>
+                                <circle cx="20" cy="21" r="1"/>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                            </svg>
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <button class="bottom-nav-btn" onclick="navigateTo('menu-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    </svg>
+                </button>
+                <!-- Cambiando el color del stroke del menú de #8B6F47 a #d4a574 -->
+                <button class="bottom-nav-btn" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4a574" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
+                <button class="bottom-nav-btn" onclick="navigateTo('cart-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                </button>
+                <!-- Eliminando botón de usuario de la barra inferior -->
+            </div>
+        </div>
+
+        <!-- Cart Screen -->
+        <div class="screen" id="cart-screen">
+            <nav class="top-nav">
+                <button class="nav-icon" onclick="navigateTo('menu-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1>Carrito</h1>
+                <!-- Agregando ícono de notificaciones junto con usuario y logout -->
+                <div class="top-nav-icons">
+                    <button class="nav-icon" onclick="navigateTo('notifications-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="navigateTo('profile-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="logout()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+
+            <div class="cart-content">
+                <!-- Mostrar mensaje si el carrito está vacío -->
+                <div id="empty-cart-message" class="empty-cart">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                    <h2>Tu carrito está vacío</h2>
+                    <p>Agrega productos desde el menú para comenzar tu pedido</p>
+                    <button class="btn-primary" onclick="navigateTo('menu-screen')">Ver Menú</button>
+                </div>
+
+                <!-- Contenedor dinámico para los items del carrito - se llena al agregar productos -->
+                <div id="cart-items-container"></div>
+
+                <!-- Agregando sección de extras con ocultamiento dinámico -->
+                <div id="extras-section" style="display: none;">
+                    <h2 class="section-title">AÑADIR</h2>
+
+                    <!-- Productos adicionales con selector de cantidad -->
+                    <div class="add-items-grid">
+                        <div class="add-item-with-quantity">
+                            <div class="add-item-image">
+                                <img src="/placeholder.svg?height=80&width=80" alt="Dulces">
+                            </div>
+                            <p>Paquete de Dulces</p>
+                            <p class="price">2.500$</p>
+                            <div class="quantity-controls">
+                                <button onclick="updateExtraQuantity('dulces', -1)">-</button>
+                                <span id="dulces-qty">0</span>
+                                <button onclick="updateExtraQuantity('dulces', 1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="add-item-with-quantity">
+                            <div class="add-item-image">
+                                <img src="/placeholder.svg?height=80&width=80" alt="Papas">
+                            </div>
+                            <p>Paquete de papas</p>
+                            <p class="price">2.500$</p>
+                            <div class="quantity-controls">
+                                <button onclick="updateExtraQuantity('papas', -1)">-</button>
+                                <span id="papas-qty">0</span>
+                                <button onclick="updateExtraQuantity('papas', 1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="add-item-with-quantity">
+                            <div class="add-item-image">
+                                <img src="/placeholder.svg?height=80&width=80" alt="Jugo">
+                            </div>
+                            <p>Jugo Hit</p>
+                            <p class="price">3.000$</p>
+                            <div class="quantity-controls">
+                                <button onclick="updateExtraQuantity('jugo', -1)">-</button>
+                                <span id="jugo-qty">0</span>
+                                <button onclick="updateExtraQuantity('jugo', 1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="add-item-with-quantity">
+                            <div class="add-item-image">
+                                <img src="/placeholder.svg?height=80&width=80" alt="Galletas">
+                            </div>
+                            <p>Galletas</p>
+                            <p class="price">2.000$</p>
+                            <div class="quantity-controls">
+                                <button onclick="updateExtraQuantity('galletas', -1)">-</button>
+                                <span id="galletas-qty">0</span>
+                                <button onclick="updateExtraQuantity('galletas', 1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="add-item-with-quantity">
+                            <div class="add-item-image">
+                                <img src="/placeholder.svg?height=80&width=80" alt="Agua">
+                            </div>
+                            <p>Agua</p>
+                            <p class="price">1.500$</p>
+                            <div class="quantity-controls">
+                                <button onclick="updateExtraQuantity('agua', -1)">-</button>
+                                <span id="agua-qty">0</span>
+                                <button onclick="updateExtraQuantity('agua', 1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="add-item-with-quantity">
+                            <div class="add-item-image">
+                                <img src="/placeholder.svg?height=80&width=80" alt="Chocolate">
+                            </div>
+                            <p>Chocolatina</p>
+                            <p class="price">2.200$</p>
+                            <div class="quantity-controls">
+                                <button onclick="updateExtraQuantity('chocolate', -1)">-</button>
+                                <span id="chocolate-qty">0</span>
+                                <button onclick="updateExtraQuantity('chocolate', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-actions">
+                    <button class="btn-icon" onclick="navigateTo('menu-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#8B6F47">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2z"/>
+                        </svg>
+                    </button>
+                    <!-- Cambiando texto del botón de AGREGAR a SIGUIENTE -->
+                    <button class="btn-secondary" onclick="proceedToSummary()">SIGUIENTE</button>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <button class="bottom-nav-btn" onclick="navigateTo('menu-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    </svg>
+                </button>
+                <!-- Cambiando el color del stroke del menú de #8B6F47 a #d4a574 -->
+                <button class="bottom-nav-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4a574" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
+                <button class="bottom-nav-btn active">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#8B6F47" stroke="#8B6F47" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                </button>
+                <!-- Eliminando botón de usuario de la barra inferior -->
+            </div>
+        </div>
+
+        <!-- Summary Screen -->
+        <div class="screen" id="summary-screen">
+            <nav class="top-nav">
+                <button class="nav-icon" onclick="navigateTo('cart-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1>Resumen Compra</h1>
+                <!-- Agregando ícono de notificaciones junto con usuario y logout -->
+                <div class="top-nav-icons">
+                    <button class="nav-icon" onclick="navigateTo('notifications-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="navigateTo('profile-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="logout()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+
+            <div class="summary-content">
+                <div class="summary-section">
+                    <h2>Productos Elegidos</h2>
+                    
+                    <div class="summary-items" id="summary-items-container">
+                        <!-- Items will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="total-section">
+                    <h3>Valor Total</h3>
+                    <p class="total-price" id="summary-total-price">0$</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="navigateTo('cart-screen')">ANTERIOR</button>
+                    <button class="btn-primary" onclick="navigateTo('payment-screen')">PAGAR</button>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <button class="bottom-nav-btn" onclick="navigateTo('menu-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    </svg>
+                </button>
+                <!-- Cambiando el color del stroke del menú de #8B6F47 a #d4a574 -->
+                <button class="bottom-nav-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4a574" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
+                <button class="bottom-nav-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                </button>
+                <!-- Eliminando botón de usuario de la barra inferior -->
+            </div>
+        </div>
+
+        <!-- Payment Methods Screen -->
+        <div class="screen" id="payment-screen">
+            <nav class="top-nav">
+                <button class="nav-icon" onclick="navigateTo('summary-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1>Métodos de pago</h1>
+                <!-- Agregando ícono de notificaciones junto con usuario y logout -->
+                <div class="top-nav-icons">
+                    <button class="nav-icon" onclick="navigateTo('notifications-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="navigateTo('profile-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="logout()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+
+            <div class="payment-content">
+                <div class="payment-methods">
+                    <h2>Metodos de pago disponibles</h2>
+                    <button class="payment-method" onclick="navigateTo('send-payment-screen')">NEQUI</button>
+                    <button class="payment-method" onclick="navigateTo('send-payment-screen')">DAVIPLATA</button>
+                    <button class="payment-method" onclick="navigateTo('send-payment-screen')">BANCOLOMBIA</button>
+                    <button class="payment-method" onclick="navigateTo('send-payment-screen')">DAVIVIENDA</button>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <button class="bottom-nav-btn" onclick="navigateTo('menu-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    </svg>
+                </button>
+                <!-- Cambiando el color del stroke del menú de #8B6F47 a #d4a574 -->
+                <button class="bottom-nav-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4a574" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
+                <button class="bottom-nav-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                </button>
+                <!-- Eliminando botón de usuario de la barra inferior -->
+            </div>
+        </div>
+
+        <!-- Send Payment Screen -->
+        <div class="screen" id="send-payment-screen">
+            <nav class="top-nav">
+                <button class="nav-icon" onclick="navigateTo('payment-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1>Envía Plata</h1>
+            </nav>
+
+            <div class="send-payment-content">
+                <form class="payment-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Cel" required>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                        </svg>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" placeholder="¿Cuanto?" required>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea placeholder="Mensaje" rows="3"></textarea>
+                    </div>
+
+                    <p class="payment-instruction">Escoje de donde saldrá la plata</p>
+
+                    <div class="payment-option">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#E91E8C">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        </svg>
+                        <span> Disponible</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </div>
+
+                    <button type="button" class="btn-primary" onclick="navigateTo('invoice-screen')">Sigue</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Invoice Screen -->
+        <div class="screen" id="invoice-screen">
+            <nav class="top-nav">
+                <button class="nav-icon" onclick="navigateTo('send-payment-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1>Factura</h1>
+                <!-- Eliminando ícono de home de la parte superior -->
+                <div class="top-nav-icons">
+                    <button class="nav-icon" onclick="navigateTo('notifications-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="navigateTo('profile-screen')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                        </svg>
+                    </button>
+                    <button class="nav-icon" onclick="logout()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+
+            <div class="invoice-content">
+                <div class="invoice-card">
+                    <h2>Factura</h2>
+
+                    <!-- Haciendo la sección de items dinámica -->
+                    <div class="invoice-items" id="invoice-items-container">
+                        <!-- Items will be dynamically added here from cart -->
+                    </div>
+
+                    <div class="invoice-total">
+                        <h3>Valor Total</h3>
+                        <!-- Haciendo el total dinámico -->
+                        <p class="invoice-price" id="invoice-total-price">0$</p>
+                    </div>
+
+                    <button class="btn-primary">Codigo de su compra</button>
+
+                    <div class="barcode">
+                        <svg width="200" height="100" viewBox="0 0 200 100">
+                            <rect x="10" y="10" width="3" height="70" fill="#000"/>
+                            <rect x="16" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="21" y="10" width="4" height="70" fill="#000"/>
+                            <rect x="28" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="33" y="10" width="5" height="70" fill="#000"/>
+                            <rect x="41" y="10" width="3" height="70" fill="#000"/>
+                            <rect x="47" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="52" y="10" width="4" height="70" fill="#000"/>
+                            <rect x="59" y="10" width="3" height="70" fill="#000"/>
+                            <rect x="65" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="70" y="10" width="5" height="70" fill="#000"/>
+                            <rect x="78" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="83" y="10" width="4" height="70" fill="#000"/>
+                            <rect x="90" y="10" width="3" height="70" fill="#000"/>
+                            <rect x="96" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="101" y="10" width="5" height="70" fill="#000"/>
+                            <rect x="109" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="114" y="10" width="4" height="70" fill="#000"/>
+                            <rect x="121" y="10" width="3" height="70" fill="#000"/>
+                            <rect x="127" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="132" y="10" width="5" height="70" fill="#000"/>
+                            <rect x="140" y="10" width="3" height="70" fill="#000"/>
+                            <rect x="146" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="151" y="10" width="4" height="70" fill="#000"/>
+                            <rect x="158" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="163" y="10" width="5" height="70" fill="#000"/>
+                            <rect x="171" y="10" width="3" height="70" fill="#000"/>
+                            <rect x="177" y="10" width="2" height="70" fill="#000"/>
+                            <rect x="182" y="10" width="4" height="70" fill="#000"/>
+                            <text x="100" y="95" font-family="monospace" font-size="10" text-anchor="middle">123456789012</text>
+                        </svg>
+                    </div>
+
+                    <!-- Agregando botón HOME en la parte inferior de la factura -->
+                    <div class="invoice-actions">
+                        <button class="btn-icon" onclick="navigateTo('menu-screen')">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="#8B6F47">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Screen -->
+        <div class="screen" id="profile-screen">
+            <nav class="top-nav">
+                <button class="nav-icon" onclick="navigateTo('menu-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1>Perfil Usuario</h1>
+            </nav>
+
+            <div class="profile-content">
+                <div class="profile-avatar">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <rect width="120" height="120" rx="20" fill="white"/>
+                        <circle cx="60" cy="45" r="20" fill="#D4A574"/>
+                        <path d="M30 100 Q60 85 90 100" fill="#333" stroke="#333" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-field">
+                        <label>Nombre</label>
+                        <input type="text" value="David Gonzales" readonly>
+                    </div>
+
+                    <div class="info-field">
+                        <label>Correo</label>
+                        <input type="email" value="davidgonzales@unilibre.edu.co" readonly>
+                    </div>
+
+                    <div class="info-field">
+                        <label>Telefono</label>
+                        <input type="tel" value="3204418529" readonly>
+                    </div>
+
+                    <div class="info-field">
+                        <label>Contraseña</label>
+                        <input type="password" value="••••••••" readonly>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                        Editar Perfil
+                    </button>
+                    <button class="btn-secondary" onclick="navigateTo('auth-screen')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                        Cerrar Sesion
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Screen -->
+        <div class="screen" id="notifications-screen">
+            <nav class="top-nav">
+                <button class="nav-icon" onclick="navigateTo('menu-screen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1>Notificaciones</h1>
+            </nav>
+
+            <div class="notifications-content">
+                <div class="notification-item">
+                    <p class="notification-date">17/10/2025</p>
+                    <p class="notification-text">Su pedido se entrego exitosamente</p>
+                </div>
+
+                <div class="notification-item">
+                    <p class="notification-date">09/10/2025</p>
+                    <p class="notification-text">Su pedido se entrego exitosamente</p>
+                </div>
+
+                <div class="notification-item">
+                    <p class="notification-date">29/08/2025</p>
+                    <p class="notification-text">Su pedido ha sido cancelado</p>
+                </div>
+
+                <div class="notification-item">
+                    <p class="notification-date">05/10/2025</p>
+                    <p class="notification-text">Pedido Listo para su entrega</p>
+                </div>
+
+                <button class="btn-primary btn-clear">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                    Vaciar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
