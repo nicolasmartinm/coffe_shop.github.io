@@ -42,7 +42,6 @@ let currentProduct = null
 let currentProductQuantity = 1
 
 const extras = {
-const extras = {
   dulces: { name: "Paquete de Dulces", price: 2500, quantity: 0 },
   papas: { name: "Paquete de papas", price: 2500, quantity: 0 },
   jugo: { name: "Jugo Hit", price: 3000, quantity: 0 },
@@ -483,6 +482,7 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("[v0] Coffee Shop app initialized")
   updateCartDisplay()
 })
+
 
 
 
