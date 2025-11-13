@@ -274,10 +274,10 @@ function updateCartDisplay() {
     container.innerHTML = cart.items
       .map(
         (item, index) => `
-      <div class="cart-item-large">
-        <div class="cart-item-image">
-          <img src="/placeholder.svg?height=150&width=150" alt="${item.name}">
-        </div>
+      <div class="cart-item-large">
+        <div class="cart-item-image">
+          <img src="${item.imageSrc}" alt="${item.name}"> 
+        </div>
         <h3>${item.name}</h3>
         <p class="item-quantity">Cantidad: ${item.quantity}</p>
         <p class="price">${(item.price * item.quantity).toLocaleString("es-CO")}$</p>
@@ -482,5 +482,6 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("[v0] Coffee Shop app initialized")
   updateCartDisplay()
 })
+
 
 
