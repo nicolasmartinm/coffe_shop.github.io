@@ -356,7 +356,7 @@ function updateSummaryDisplay() {
       (item) => `
     <div class="summary-item">
       <div class="summary-item-image">
-        <img src="/placeholder.svg?height=100&width=100" alt="${item.name}">
+       <img src="${item.imageSrc}" alt="${item.name}">
       </div>
       <h3>${item.name}</h3>
       <p class="item-quantity">Cantidad: ${item.quantity}</p>
@@ -482,4 +482,5 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("[v0] Coffee Shop app initialized")
   updateCartDisplay()
 })
+
 
