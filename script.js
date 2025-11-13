@@ -42,12 +42,42 @@ let currentProduct = null
 let currentProductQuantity = 1
 
 const extras = {
-  dulces: { name: "Paquete de Dulces", price: 2500, quantity: 0 },
-  papas: { name: "Paquete de papas", price: 2500, quantity: 0 },
-  jugo: { name: "Jugo Hit", price: 3000, quantity: 0 },
-  galletas: { name: "Galletas", price: 2000, quantity: 0 },
-  agua: { name: "Agua", price: 1500, quantity: 0 },
-  chocolate: { name: "Chocolatina", price: 2200, quantity: 0 },
+  dulces: { 
+    name: "Paquete de Dulces", 
+    price: 2500, 
+    quantity: 0, 
+    imageSrc: "https://polloslariviera.com/wp-content/uploads/2022/10/LA-RIVIERA_Combo-H-sencilla-10oz.jpg" // ¡AGREGA ESTA LÍNEA!
+},
+  papas: { 
+    name: "Paquete de papas", 
+    price: 2500, 
+    quantity: 0,
+    imageSrc: "https://tofuu.getjusto.com/orioneat-local/resized2/EhPavymh7EenLn8mN-300-x.webp" // ¡AGREGA ESTA LÍNEA!
+},
+  jugo: { 
+    name: "Jugo Hit", 
+    price: 3000, 
+    quantity: 0,
+    imageSrc: "https://ejemplo.com/imagenes/jugo.jpg" // ¡AGREGA ESTA LÍNEA!
+},
+  galletas: { 
+    name: "Galletas", 
+    price: 2000, 
+    quantity: 0,
+    imageSrc: "https://ejemplo.com/imagenes/galletas.jpg" // ¡AGREGA ESTA LÍNEA!
+},
+  agua: { 
+    name: "Agua", 
+    price: 1500, 
+    quantity: 0,
+    imageSrc: "https://ejemplo.com/imagenes/agua.jpg" // ¡AGREGA ESTA LÍNEA!
+},
+  chocolate: { 
+    name: "Chocolatina", 
+    price: 2200, 
+    quantity: 0,
+    imageSrc: "https://ejemplo.com/imagenes/chocolate.jpg" // ¡AGREGA ESTA LÍNEA!
+},
 }
 
 const productsDB = {
@@ -332,6 +362,7 @@ function proceedToSummary() {
           name: extra.name,
           price: extra.price,
           quantity: extra.quantity,
+          imageSrc: extra.imageSrc,
         })
         cart.total += extra.price * extra.quantity
       }
@@ -482,6 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("[v0] Coffee Shop app initialized")
   updateCartDisplay()
 })
+
 
 
 
