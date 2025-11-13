@@ -56,7 +56,7 @@ const productsDB = {
     description:
       "Deliciosa hamburguesa con papas fritas y bebida. Carne 100% res, vegetales frescos y nuestras salsas especiales.",
     category: "combos",
-    imageSrc: "/combo-de-hamburguesa.jpg",
+    imageSrc: "https://polloslariviera.com/wp-content/uploads/2022/10/LA-RIVIERA_Combo-H-sencilla-10oz.jpg",
   },
   "Combo Desayuno": {
     price: 15000,
@@ -212,6 +212,7 @@ function addToCartFromDetail() {
         name: currentProduct.name,
         price: currentProduct.price,
         quantity: currentProductQuantity,
+        imageSrc: currentProduct.imageSrc,
       })
     }
 
@@ -481,3 +482,4 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("[v0] Coffee Shop app initialized")
   updateCartDisplay()
 })
+
