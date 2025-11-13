@@ -62,7 +62,7 @@ const productsDB = {
     price: 15000,
     description: "Desayuno completo con huevos, pan tostado, jugo natural y café. El inicio perfecto para tu día.",
     category: "combos",
-    imageSrc: "/combo-desayuno.jpg",
+    imageSrc: "https://tofuu.getjusto.com/orioneat-local/resized2/EhPavymh7EenLn8mN-300-x.webp",
   },
   Empanadas: {
     price: 3500,
@@ -482,6 +482,7 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("[v0] Coffee Shop app initialized")
   updateCartDisplay()
 })
+
 
 
 
