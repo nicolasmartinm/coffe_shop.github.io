@@ -46,37 +46,37 @@ const extras = {
     name: "Paquete de Dulces", 
     price: 2500, 
     quantity: 0, 
-    imageSrc: "https://polloslariviera.com/wp-content/uploads/2022/10/LA-RIVIERA_Combo-H-sencilla-10oz.jpg" // ¡AGREGA ESTA LÍNEA!
+    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYN6ZXI27lNflw5Gc8FBXb_I6JVWlV2H30lQ&s" 
 },
   papas: { 
     name: "Paquete de papas", 
     price: 2500, 
     quantity: 0,
-    imageSrc: "https://tofuu.getjusto.com/orioneat-local/resized2/EhPavymh7EenLn8mN-300-x.webp" // ¡AGREGA ESTA LÍNEA!
+    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROFNpcrphTQznGP2upjPX3QVjnVPmUAkQDXg&s" 
 },
   jugo: { 
     name: "Jugo Hit", 
     price: 3000, 
     quantity: 0,
-    imageSrc: "https://ejemplo.com/imagenes/jugo.jpg" // ¡AGREGA ESTA LÍNEA!
+    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5kfpQ-T_-zm3n76qI5wATzrpAvox5TBhX_Q&s" 
 },
   galletas: { 
     name: "Galletas", 
     price: 2000, 
     quantity: 0,
-    imageSrc: "https://ejemplo.com/imagenes/galletas.jpg" // ¡AGREGA ESTA LÍNEA!
+    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6dyGnPm0vxKB4TUb6fVguNmw1V6PCgimy2g&s" 
 },
   agua: { 
     name: "Agua", 
     price: 1500, 
     quantity: 0,
-    imageSrc: "https://ejemplo.com/imagenes/agua.jpg" // ¡AGREGA ESTA LÍNEA!
+    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReU-VUPrWpWCCBIqnlMe8upSzSa-Wg2xsi8A&sholder.svg?height=80&width=80" 
 },
   chocolate: { 
     name: "Chocolatina", 
     price: 2200, 
     quantity: 0,
-    imageSrc: "https://ejemplo.com/imagenes/chocolate.jpg" // ¡AGREGA ESTA LÍNEA!
+    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDn0_mH1_qvTv5ISHH4iBKN1-b43UjIsSBEg&s" 
 },
 }
 
@@ -513,6 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("[v0] Coffee Shop app initialized")
   updateCartDisplay()
 })
+
 
 
 
