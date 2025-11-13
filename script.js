@@ -42,31 +42,14 @@ let currentProduct = null
 let currentProductQuantity = 1
 
 const extras = {
-  dulces: { 
-    name: "Paquete de Dulces", 
-    price: 2500, 
-    quantity: 0,
-    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYN6ZXI27lNflw5Gc8FBXb_I6JVWlV2H30lQ&s" // CAMBIA ESTO
-},
-  papas: { 
-    name: "Paquete de papas", 
-    price: 2500, 
-    quantity: 0,
-    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROFNpcrphTQznGP2upjPX3QVjnVPmUAkQDXg&s" // CAMBIA ESTO
-},
-  jugo: { 
-    name: "Jugo Hit", 
-    price: 3000, 
-    quantity: 0,
-    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5kfpQ-T_-zm3n76qI5wATzrpAvox5TBhX_Q&s" // CAMBIA ESTO
-},
-  galletas: { 
-    name: "Galletas", 
-    price: 2000, 
-    quantity: 0,
-    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6dyGnPm0vxKB4TUb6fVguNmw1V6PCgimy2g&s" // CAMBIA ESTO
-},
-// ... y así con el resto de los extras (agua, chocolate, etc.)
+
+   dulces: { name: "Paquete de Dulces", price: 2500, quantity: 0 ,imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYN6ZXI27lNflw5Gc8FBXb_I6JVWlV2H30lQ&s" },
+  papas: { name: "Paquete de papas", price: 2500, quantity: 0 ,  imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROFNpcrphTQznGP2upjPX3QVjnVPmUAkQDXg&s"  },
+  jugo: { name: "Jugo Hit", price: 3000, quantity: 0 , imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5kfpQ-T_-zm3n76qI5wATzrpAvox5TBhX_Q&s"  },
+  galletas: { name: "Galletas", price: 2000, quantity: 0 , "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6dyGnPm0vxKB4TUb6fVguNmw1V6PCgimy2g&s"  },
+  agua: { name: "Agua", price: 1500, quantity: 0 },
+  chocolate: { name: "Chocolatina", price: 2200, quantity: 0 },
+
 }
 
 const productsDB = {
@@ -501,6 +484,7 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("[v0] Coffee Shop app initialized")
   updateCartDisplay()
 })
+
 
 
 
